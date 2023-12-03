@@ -5,45 +5,45 @@ use std::time::Instant;
 
 struct NumericWord<'a> {
     word: &'a str,
-    value: u32,
+    replacement_word: &'a str,
 }
 
 const NUMERIC_WORDS: [NumericWord; 9] = [
     NumericWord {
         word: "one",
-        value: 1,
+        replacement_word: "o1e",
     },
     NumericWord {
         word: "two",
-        value: 2,
+        replacement_word: "t2o",
     },
     NumericWord {
         word: "three",
-        value: 3,
+        replacement_word: "t3hree",
     },
     NumericWord {
         word: "four",
-        value: 4,
+        replacement_word: "f4our",
     },
     NumericWord {
         word: "five",
-        value: 5,
+        replacement_word: "f5ive",
     },
     NumericWord {
         word: "six",
-        value: 6,
+        replacement_word: "s6ix",
     },
     NumericWord {
         word: "seven",
-        value: 7,
+        replacement_word: "s7even",
     },
     NumericWord {
         word: "eight",
-        value: 8,
+        replacement_word: "e8ight",
     },
     NumericWord {
         word: "nine",
-        value: 9,
+        replacement_word: "n9ine",
     }];
 
 
@@ -57,7 +57,7 @@ fn main() {
         for line in lines {
             if let Ok(str) = line {
                 let updated_line = convert_numeric_words_in_line_to_digits(String::from(str));
-                println!("Updated line: {}", updated_line);
+                //println!("Updated line: {}", updated_line);
                 let mut first_int: u32 = 0;
                 let mut second_int: u32 = 0;
                 
@@ -79,7 +79,7 @@ fn main() {
                 }
                 match format!("{}{}", first_int, second_int).parse::<u32>() {
                     Ok(calibration_value) => { 
-                        println!("Calibration Value {}", calibration_value); 
+                        //println!("Calibration Value {}", calibration_value); 
                         sum_of_calibration_values += calibration_value;
                     }
                     Err(e) => {
@@ -102,10 +102,13 @@ where P: AsRef<Path>, {
     Ok(io::BufReader::new(file).lines())
 }
 
+/**
+ * Converts all numeric words in the line to digits.
+ */
 fn convert_numeric_words_in_line_to_digits(line: String) -> String {
     let mut updated_line = line;
     for word in NUMERIC_WORDS.iter() {
-        updated_line = updated_line.replace(word.word, word.value.to_string().as_str());
+        updated_line = updated_line.replace(word.word, word.replacement_word);
     }
-    String::from(updated_line)
+    updated_line
 }
