@@ -1,9 +1,11 @@
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
+use std::time::Instant;
 
 
 fn main() {
+    let start_time = Instant::now();
     let args: Vec<String> = std::env::args().collect();
 
     let input_file = &args[1];
@@ -32,7 +34,7 @@ fn main() {
                 }
                 match format!("{}{}", first_int, second_int).parse::<u32>() {
                     Ok(calibration_value) => { 
-                        println!("Calibration Value {}", calibration_value); 
+                        //println!("Calibration Value {}", calibration_value); 
                         sum_of_calibration_values += calibration_value;
                     }
                     Err(e) => {
@@ -43,6 +45,7 @@ fn main() {
         }
     }
     println!("Sum of calibration values: {}", sum_of_calibration_values);
+    println!("Program finished executing in : {:?}", start_time.elapsed());
 }
 
 
