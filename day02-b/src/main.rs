@@ -16,7 +16,6 @@ struct CubeAssignment {
  * Holds the cube assignments for the rounds in the game.
  */
 struct RoundInformation {
-    round_number: u32,
     cube_assignments: Vec<CubeAssignment>,
 }
 
@@ -107,15 +106,10 @@ fn split_line_into_usable_information(line: String)-> GameInfo {
 
         let rounds: Vec<&str> = rounds_str.split(";").collect();
 
-        let mut round_number = 1;
-
         for round in rounds {
             let mut round_information = RoundInformation {
-                round_number: round_number,
                 cube_assignments: Vec::new(),
             };
-
-            round_number += 1;
 
             for cap in round_information_regex.captures_iter(round) {
                 let cube_assignment = CubeAssignment {
